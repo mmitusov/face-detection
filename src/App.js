@@ -6,11 +6,11 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
 import FaceRecognition from './components/faceRecognition/faceRecognition'
 import './App.css';
 import Particles from 'react-particles-js';
-// import Clarifai from 'clarifai';
+import Clarifai from 'clarifai';
 
-// const app = new Clarifai.app({
-//   apiKey: 'e1e29699a6504336ae0ffa788524d16a'
-// });
+const app = new Clarifai.App({
+  apiKey: 'e1e29699a6504336ae0ffa788524d16a'
+});
 
 const particlesOptions = {
   particles: {
@@ -38,16 +38,15 @@ class App extends Component {
   }
 
   onDetect = () => {
-    console.log('Click!');
     this.setState({imageUrl: this.state.input})
-    // app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-    //   function (response) {
-    //     console.log(response);
-    //   },
-    //   function(err) {
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
+      function (response) {
+        console.log(response);
+      },
+      function(err) {
 
-    //   }
-    // );
+      }
+    );
   }
 
   render() {
