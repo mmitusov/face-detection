@@ -17,3 +17,4 @@ const ImageLinkForm = ({onInputChange, onDetect}) => {
 }
 
 export default ImageLinkForm;
+
