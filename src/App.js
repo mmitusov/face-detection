@@ -34,10 +34,32 @@ class App extends Component {
       imageUrl: "",
       box: {},
       route: 'signin',
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: ''
+      }
     }
   }
 
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: 0,
+      joined: data.joined
+    }})
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/')
+      .then(response => response.json())
+      .then(console.log)
+  }
 
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -88,7 +110,7 @@ class App extends Component {
           ?          
             <div>
               <Logo />
-              <Rank />
+              <Rank rankName={this.state.user.name} rankEntries={this.state.user.entries}/>
               <ImageLinkForm onInputChange={this.onInputChange} onDetect={this.onDetect}/>
               <FaceRecognition box={box} imageUrl={imageUrl}/>
             </div>
@@ -97,7 +119,7 @@ class App extends Component {
               ?
                 <SighnIn onRouteChangeee={this.onRouteChange} />
               :
-                <Register onRouteChangeee={this.onRouteChange} />
+                <Register onRouteChangeee={this.onRouteChange} loadUser={this.loadUser} />
               )
         }
       </div>
