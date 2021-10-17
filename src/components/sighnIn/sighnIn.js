@@ -27,9 +27,10 @@ class SighnIn extends React.Component {
 			})
 		})
 		.then(res => res.json())
-		.then(data => {
-			if (data === 'Done!') {
-				this.props.onRouteChangeee('home')
+		.then(user => {
+			if(user.id){
+	          	this.props.loadUser(user);
+				this.props.onRouteChangeee('home');
 			}
 			// if(user.id){ // does the user exist? Did we receive a user with a property of id?
 	  //         this.props.loadUser(user);
