@@ -51,16 +51,11 @@ class App extends Component {
         id: data.id,
         name: data.name,
         email: data.email,
-        entries: 0,
+        entries: data.entries,
         joined: data.joined
     }})
   }
-
-  componentDidMount() {
-    fetch('http://localhost:3001/')
-      .then(response => response.json())
-      .then(console.log)
-  }
+  
 
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -98,13 +93,13 @@ class App extends Component {
           })
        })
           .then(res => res.json())
-          .then(entr => {
-            this.setState(Object.assign(this.state.user, {entries: count}))
-          })
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response))
-    })
-    .catch(err => console.log(err));
+          .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count}))
+            })
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response))
+      })
+      .catch(err => console.log(err));
   }
 
   onRouteChange = (route) => {
@@ -121,7 +116,7 @@ class App extends Component {
     return (
       <div className="App">
         <Particles params={particlesOptions} className='particlesCSS'/>
-        <Navigation isSignedIn={isSignedIn} onRouteChangeee={this.onRouteChange} />
+        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
         {route === 'home' 
           ?          
             <div>
@@ -133,9 +128,9 @@ class App extends Component {
           : (
               route === 'signin' 
               ?
-                <SighnIn onRouteChangeee={this.onRouteChange} />
+                <SighnIn onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
               :
-                <Register onRouteChangeee={this.onRouteChange} loadUser={this.loadUser} />
+                <Register onRouteChange={this.onRouteChange} loadUser={this.loadUser} />
               )
         }
       </div>

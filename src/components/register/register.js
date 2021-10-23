@@ -36,7 +36,7 @@ class Register extends React.Component {
 		.then(user => {
 			if (user) {
 				this.props.loadUser(user)
-				this.props.onRouteChangeee('home')
+				this.props.onRouteChange('home')
 			} 
 		})
 	}
@@ -69,8 +69,7 @@ class Register extends React.Component {
 					        	onChange={this.onPasswordChange}
 					        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"
 					        />
-					      </div>
-					      <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox"/> Remember me</label>
+					      </div>					      
 					    </fieldset>
 					    <div className="">
 					      <input 

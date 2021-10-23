@@ -27,22 +27,17 @@ class SighnIn extends React.Component {
 			})
 		})
 		.then(res => res.json())
-		.then(user => {
-			if(user.id){
-	          	this.props.loadUser(user);
-				this.props.onRouteChangeee('home');
+		.then(data => {
+			if(data.id){
+	          	this.props.loadUser(data)
+				this.props.onRouteChange('home');
 			}
-			// if(user.id){ // does the user exist? Did we receive a user with a property of id?
-	  //         this.props.loadUser(user);
-	  //         this.props.onRouteChange('home');
-	  //       }
-		})
-		
-		
+		})		
 	}
 
+
 	render() {
-		const {onRouteChangeee} = this.props;
+		const {onRouteChange} = this.props;
 		return (
 			<div>
 				<article className="mw6 center bg-white br3 shadow-5 pa3 pa4-ns mv3 ba b--black-10">
@@ -63,8 +58,7 @@ class SighnIn extends React.Component {
 						        	onChange={this.onPasswordChange}
 						        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"
 					        	/>
-					      </div>
-					      <label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox"/> Remember me</label>
+					      </div>					      
 					    </fieldset>
 					    <div className="">
 					      <input 
@@ -72,7 +66,7 @@ class SighnIn extends React.Component {
 					      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" />
 					    </div>
 					    <div className="lh-copy mt3">
-					      <p onClick={() => onRouteChangeee('register')} className="f6 link dim black db pointer">Register</p>				      
+					      <p onClick={() => onRouteChange('register')} className="f6 link dim black db pointer">Register</p>				      
 					    </div>
 					  </div>
 					</main>
