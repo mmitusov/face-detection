@@ -28,7 +28,7 @@ class SighnIn extends React.Component {
 		})
 		.then(res => res.json())
 		.then(data => {
-			if(data.id){
+			if(data.email){
 	          	this.props.loadUser(data)
 				this.props.onRouteChange('home');
 			}
