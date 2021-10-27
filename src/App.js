@@ -8,11 +8,11 @@ import SighnIn from './components/sighnIn/sighnIn'
 import Register from './components/register/register'
 import './App.css';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
+// import Clarifai from 'clarifai'; <--- It was moved into image.js on the backend
 
-const app = new Clarifai.App({
-  apiKey: 'e1e29699a6504336ae0ffa788524d16a'
-});
+// const app = new Clarifai.App({
+//   apiKey: 'e1e29699a6504336ae0ffa788524d16a' <--- It was moved into image.js on the backend
+// });
 
 const particlesOptions = {
   particles: {
@@ -26,10 +26,7 @@ const particlesOptions = {
   }
 }
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
+const initialState = {
       input: "",
       imageUrl: "",
       box: {},
@@ -43,6 +40,11 @@ class App extends Component {
         joined: ''
       }
     }
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = initialState;
   }
 
   loadUser = (data) => {
@@ -82,7 +84,14 @@ class App extends Component {
 
   onDetect = () => {
     this.setState({imageUrl: this.state.input})
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    fetch('http://localhost:3001/imageurl', {
+          method: 'post',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            input: this.state.input
+          })
+        })
+    .then(response => response.json())
     .then(response => {
       if (response) {
         fetch('http://localhost:3001/image', {
@@ -91,12 +100,13 @@ class App extends Component {
           body: JSON.stringify({
             id: this.state.user.id            
           })
-       })
+        })
           .then(res => res.json())
           .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count}))
-            })
-        }
+          })
+          .catch(console.log())
+      }
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
       .catch(err => console.log(err));
@@ -104,7 +114,7 @@ class App extends Component {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
