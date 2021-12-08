@@ -1,4 +1,4 @@
-# P.S. `react-particles-js` should be installed with force: `npm install react-particles-js --force`
+### P.S. `react-particles-js` should be installed with force: `npm install react-particles-js --force`
 
 # Getting Started with Create React App
 
