@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 // import Clarifai from 'clarifai';
-import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-import Navigation from './components/Navigation/Navigation';
-import Signin from './components/Signin/Signin';
-import Register from './components/Register/Register';
-import Logo from './components/Logo/Logo';
+import FaceRecognition from './components/faceRecognition/faceRecognition';
+import Navigation from './components/navigation/navigation';
+import Signin from './components/signin/signin';
+import Register from './components/register/register';
+import Logo from './components/logo/logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import Rank from './components/Rank/Rank';
+import Rank from './components/rank/rank';
 import './App.css';
 
 // import Clarifai from 'clarifai'; <--- It was moved into image.js on the backend
